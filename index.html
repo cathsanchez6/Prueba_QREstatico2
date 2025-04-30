@@ -59,7 +59,6 @@
     .formulario h2 {
       color: #007837;
       font-size: 20px;
-      text-aling: right;
       margin-bottom: 20px;
     }
 
@@ -96,6 +95,36 @@
       max-height: 300px; 
       object-fit: fill;
     }
+    .fila-datos {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .grupo-dato {
+      flex: 1;
+      min-width: 100px;
+    }
+    
+    .grupo-dato label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+      color: #000;
+    }
+    
+    .campo2 {
+      background-color: #eeeeee;
+      border-radius: 20px;
+      padding: 10px 15px;
+      color: #555;
+      font-size: 14px;
+      font-style: italic;
+    }
+
 
     /* Responsive */
     @media (max-width: 600px) {
@@ -124,7 +153,7 @@
       <div class="contenedor-principal">
     
         <div class="logo">
-          <img src="assets/logo cintandina.png" alt="logo_cintandina"><br>
+          <img src="assets/logo cintandina.png" alt="logo_cintandina">
         </div>
       </tr>
       <tr>
@@ -139,10 +168,30 @@
       <tr>
         <div class="contenedor-marco">
           <div class="formulario">
-            <label><b>Certified Organic by / Certifiè Biologique par:</b></label>
-            <div class="campo"><b>Control Union Certification</b></div>
-            <label><b>Country of Origin / Pays D'origine:</b></label>
-            <div class="campo"><b>Product Of Ecuador / Produit De L'Èquateur</b></div>    
+            <label><b>Razòn Social:</b></label>
+            <div class="campo"><b>Cintandina S.A.</b></div>
+            <label><b>NIT:</b></label>
+            <div class="campo"><b>890.321.924</b></div>
+            <div class="fila-datos">
+              <div class="grupo-dato">
+                <label><b>Direcciòn:</b></label>
+                <div class="campo2"><b>Carrera 2 # 37 - 50 </b></div>
+              </div>
+                <div class="grupo-dato">
+                <label><b>Telèfono:</b></label>
+                <div class="campo2"><b>(602)4430801</b></div>
+              </div>
+              <div class="grupo-dato">
+                <label><b>Ciudad:</b></label>
+                <div class="campo2">Cali</div>
+              </div>
+            </div>
+            <label><b>Correo Electrònico:</b></label>
+            <div class="campo2"><b>Telemercadeo@cintandina.com </b></div>
+            <label><b>Pàgina Web:</b></label>
+            <div class="campo"><b>www.cintandina.com</b></div>
+            <label><b>Mas informaciòn:</b></label>
+            <div class="campo"><b></b></div>
             <br>
             <br>
             <a href="https://cathsanchez6.github.io/Formulario_Prueba_dos/" style="color: #007837; text-decoration: none; font-weight: bold;">
