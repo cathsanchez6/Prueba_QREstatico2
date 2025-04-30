@@ -6,13 +6,12 @@
   <title>Cintandina</title>
 
   <style>
-    
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-size: cover; 
-      background-repeat: no-repeat; 
+      background-size: cover;
+      background-repeat: no-repeat;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -27,13 +26,15 @@
       align-items: center;
       padding-top: 25px;
       z-index: 10;
+      width: 100%;
     }
 
     .logo img {
-      width: 180px;
+      width: 200px;
       height: auto;
       object-fit: cover;
     }
+
     .texto-justificado {
       text-align: justify;
       font-size: 14px;
@@ -43,23 +44,23 @@
       max-width: 500px;
     }
 
-
     .contenedor-marco {
       background-color: white;
-      /*border: 5px solid light gray;*/
       border-radius: 25px;
       box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2);
       padding: 40px;
       width: 90%;
       max-width: 500px;
-      text-align: center;
+      text-align: left;
       z-index: 10;
+      margin-bottom: 30px;
     }
 
     .formulario h2 {
       color: #007837;
       font-size: 20px;
       margin-bottom: 20px;
+      text-align: left;
     }
 
     label {
@@ -68,7 +69,6 @@
       margin-top: 25px;
       color: #333;
       font-size: 14px;
-      text-align: left;
     }
 
     .campo {
@@ -79,22 +79,8 @@
       margin-top: 5px;
       font-style: italic;
       font-size: 14px;
-      text-align: left;
     }
 
-    .fondo-decorativo {
-      width: 100%;
-      margin-top: 0px; 
-      z-index: 5;
-    }
-
-    .fondo-decorativo img {
-      width: 100%;
-      height: auto;
-      display: block;
-      max-height: 300px; 
-      object-fit: fill;
-    }
     .fila-datos {
       display: flex;
       justify-content: space-between;
@@ -102,12 +88,12 @@
       margin-top: 20px;
       flex-wrap: wrap;
     }
-    
+
     .grupo-dato {
       flex: 1;
       min-width: 100px;
     }
-    
+
     .grupo-dato label {
       font-weight: bold;
       font-size: 14px;
@@ -115,7 +101,7 @@
       margin-bottom: 5px;
       color: #000;
     }
-    
+
     .campo2 {
       background-color: #eeeeee;
       border-radius: 20px;
@@ -123,86 +109,94 @@
       color: #555;
       font-size: 14px;
       font-style: italic;
-      text-align: left;
     }
 
+    .boton-confirmar {
+      display: inline-block;
+      background-color: #007837;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-top: 25px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .boton-confirmar:hover {
+      background-color: #005f2a;
+    }
 
     /* Responsive */
     @media (max-width: 600px) {
       .contenedor-marco {
-        padding: 8px;
+        padding: 20px;
       }
       .formulario h2 {
-        font-size: 20px;
+        font-size: 18px;
       }
-      label, .campo {
+      label, .campo, .campo2 {
         font-size: 13px;
       }
       .logo img {
-        width: 108px;
-      }
-     .fondo-decorativo img {
-        max-height: 300px;
+        width: 140px;
       }
     }
   </style>
 </head>
 
 <body>
-    <table>
-    <tr>
-      <div class="contenedor-principal">
-    
-        <div class="logo">
-          <img src="assets/logo cintandina.png" alt="logo_cintandina">
-        </div>
-      </tr>
-      <tr>
-        <div class="contenedor-principal">
-        <h2>Sobre Nosotros</h2>
-        <div class="texto-justificado">Somos una empresa 100% Colombiana productora y comercializadora de cintas autoadhesivas y productos de embalaje para las diferentes aplicaciones, con énfasis en el mercado nacional y el continente americano.
-         <br><br>Buscamos satisfacer las expectativas de los consumidores para garantizar seguridad y ofrecer diferentes alternativas en sus procesos de empaque, todo enmarcado en una excelente calidad e innovación, gracias a las actividades de investigación y diseño, para dar respuesta a las tendencias del mercado.
-        </div>
-        <br>
-        </div>
-      </tr>
-      <tr>
-        <div class="contenedor-marco">
-          <div class="formulario">
-            <label><b>Razòn Social:</b></label>
-            <div class="campo">Cintandina S.A.</div>
-            <label><b>NIT:</b></label>
-            <div class="campo">890.321.924</div>
-            <div class="fila-datos">
-              <div class="grupo-dato">
-                <label><b>Direcciòn:</b></label>
-                <div class="campo2">Carrera 2 # 37 - 50</div>
-              </div>
-                <div class="grupo-dato">
-                <label><b>Telèfono:</b></label>
-                <div class="campo2">(602)4430801</div>
-              </div>
-              <div class="grupo-dato">
-                <label><b>Ciudad:</b></label>
-                <div class="campo2">Cali</div>
-              </div>
-            </div>
-            <label><b>Correo Electrònico:</b></label>
-            <div class="campo2"><b>Telemercadeo@cintandina.com </b></div>
-            <label><b>Pàgina Web:</b></label>
-            <div class="campo"><b>www.cintandina.com</b></div>
-            <label><b>Mas informaciòn:</b></label>
-            <div class="campo"><b></b></div>
-            <br>
-            <br>
-            <a href="https://cathsanchez6.github.io/Formulario_Prueba_dos/" style="color: #007837; text-decoration: none; font-weight: bold;">
-              Confirmar entrega
-            </a>
+  <div class="contenedor-principal">
+    <div class="logo">
+      <img src="assets/logo cintandina.png" alt="logo_cintandina">
+    </div>
 
+    <h2 style="text-align: left; max-width: 500px; padding: 0 20px;">Sobre Nosotros</h2>
+    <div class="texto-justificado">
+      Somos una empresa 100% Colombiana productora y comercializadora de cintas autoadhesivas y productos de embalaje para las diferentes aplicaciones, con énfasis en el mercado nacional y el continente americano.
+      <br><br>
+      Buscamos satisfacer las expectativas de los consumidores para garantizar seguridad y ofrecer diferentes alternativas en sus procesos de empaque, todo enmarcado en una excelente calidad e innovación, gracias a las actividades de investigación y diseño, para dar respuesta a las tendencias del mercado.
+    </div>
+
+    <div class="contenedor-marco">
+      <div class="formulario">
+        <label>Razón Social:</label>
+        <div class="campo">Cintandina S.A.</div>
+
+        <label>NIT:</label>
+        <div class="campo">890.321.924</div>
+
+        <div class="fila-datos">
+          <div class="grupo-dato">
+            <label>Dirección:</label>
+            <div class="campo2">Carrera 2 # 37 - 50</div>
+          </div>
+          <div class="grupo-dato">
+            <label>Teléfono:</label>
+            <div class="campo2">(602)4430801</div>
+          </div>
+          <div class="grupo-dato">
+            <label>Ciudad:</label>
+            <div class="campo2">Cali</div>
           </div>
         </div>
-        </tr>
+
+        <label>Correo Electrónico:</label>
+        <div class="campo2">telemercadeo@cintandina.com</div>
+
+        <label>Página Web:</label>
+        <div class="campo">www.cintandina.com</div>
+
+        <label>Más información:</label>
+        <div class="campo"></div>
+
+        <a class="boton-confirmar" href="https://cathsanchez6.github.io/Formulario_Prueba_dos/" target="_blank">
+          Confirmar entrega
+        </a>
+      </div>
+    </div>
   </div>
-    </table>
 </body>
 </html>
