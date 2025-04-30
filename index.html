@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cintandina</title>
+
+  <style>
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('assets/FONDO-DEL-MONTE.png'); 
+      background-size: cover; 
+      background-repeat: no-repeat; 
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .contenedor-principal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 25px;
+      z-index: 10;
+    }
+
+    .logo img {
+      width: 100px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .contenedor-marco {
+      background-color: white;
+      /*border: 5px solid light gray;*/
+      border-radius: 25px;
+      box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .formulario h2 {
+      color: #007837;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 25px;
+      color: #333;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .campo {
+      background-color: #eeeeee;
+      padding: 12px 15px;
+      border-radius: 10px;
+      color: #555;
+      margin-top: 5px;
+      font-style: italic;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    .fondo-decorativo {
+      width: 100%;
+      margin-top: 0px; 
+      z-index: 5;
+    }
+
+    .fondo-decorativo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 300px; 
+      object-fit: fill;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .contenedor-marco {
+        padding: 8px;
+      }
+      .formulario h2 {
+        font-size: 20px;
+      }
+      label, .campo {
+        font-size: 13px;
+      }
+      .logo img {
+        width: 100px;
+      }
+     .fondo-decorativo img {
+        max-height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <div class="contenedor-principal">
+    
+        <div class="logo">
+          <img src="assets/logo cintandina.png" alt="logo_cintandina"><br><br>
+        </div>
+      </tr>
+      <tr>
+        <div class="contenedor-marco">
+          <div class="formulario">
+            <h2>Información</h2>
+            <video width="100%" controls style="margin-top: 20px; border-radius: 10px;">
+            <source src="assets/Black White and Yellow Modern Fashion Promo TikTok Story Video.mp4" type="video/mp4">
+            </video>
+            <br>
+            <br>
+            <a href="pagina2.html" style="color: #007837; text-decoration: none; font-weight: bold;">
+              Confirmar entrega
+            </a>
+
+          </div>
+        </div>
+        </tr>
+        <tr>
+          <br><br>
+          <div class="fondo-decorativo">
+            <img src="assets/cintandinaperu_cover.jpg" alt="Banner decorativo">
+         </div>
+      </tr>
+  </div>
+    </table>
+</body>
+</html>
