@@ -22,17 +22,22 @@
       position: relative;
       overflow-x: hidden;
     }
-     .contenedor-principal {
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        z-index: 10;
-      }
+
+    .contenedor-principal {
+      max-width: 600px; 
+      margin: 0 auto;
+      padding: 20px;  
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 25px;
+      z-index: 10;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
     .logo img {
       width: 200px;
       height: auto;
@@ -47,18 +52,17 @@
       line-height: 1.6;
       max-width: 500px;
     }
-
     .contenedor-marco {
       background-color: white;
       border-radius: 25px;
-      box-shadow: 10px rgba(0, 0, 0, 0.2);
-      padding: 40px 0 0 0; 
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 40px 20px 20px 20px; 
       width: 90%;
       max-width: 500px;
       text-align: left;
       z-index: 10;
       margin-bottom: 10px;
-      overflow: hidden; 
+      overflow: hidden;
     }
     .contenedor-marco2 {
       background-color: #787E87;
@@ -73,14 +77,12 @@
       line-height: 1.4;
       margin: 0; 
     }
-
     .formulario h2 {
       color: #007837;
       font-size: 18px;
       margin-bottom: 15px;
       text-align: left;
     }
-
     label {
       display: block;
       font-weight: bold;
@@ -88,7 +90,6 @@
       color: #333;
       font-size: 14px;
     }
-
     .campo {
       background-color: #eeeeee;
       padding: 12px 15px;
@@ -99,7 +100,6 @@
       line-height: 1.4;
       font-size: 14px;
     }
-
     .fila-datos {
       display: flex;
       justify-content: space-between;
@@ -107,12 +107,10 @@
       margin-top: 10px;
       flex-wrap: wrap;
     }
-
     .grupo-dato {
       flex: 1;
       min-width: 100px;
     }
-
     .grupo-dato label {
       font-weight: bold;
       font-size: 14px;
@@ -120,7 +118,6 @@
       margin-bottom: 5px;
       color: #000;
     }
-
     .campo2 {
       background-color: #eeeeee;
       border-radius: 20px;
@@ -132,7 +129,6 @@
       font-size: 14px;
       font-style: italic;
     }
-
     .boton-confirmar {
       display: block;
       width: 100%;
@@ -147,8 +143,6 @@
       transition: background-color 0.3s;
       box-sizing: border-box;
     }
-
-
     .boton-confirmar:hover {
       background-color: #787E87;
     }
@@ -170,31 +164,29 @@
       background-color: #787E87;
     }
 
-
-    /* Responsive para que se adapte a cualquier pantalla */
-    @media (max-width: 600px) {
-      .contenedor-principal {
-        padding: 0 20px; /* margen lateral reducido pero visible */
-      }
-      .contenedor-marco {
-        padding: 20px;
-      }
-      .contenedor-marco2 {
-        padding: 20px;
-      }
-      .formulario h2 {
-        font-size: 18px;
-      }
-      label, .campo, .campo2 {
-        font-size: 13px;
-      }
-      .logo img {
-        width: 140px;
-      }
-    }
-  </style>
+/* Responsive para que se adapte a cualquier pantalla */
+@media (max-width: 600px) {
+  .contenedor-principal {
+    padding: 0 20px; /* margen lateral reducido pero visible */
+  }
+  .contenedor-marco {
+    padding: 20px;
+  }
+  .contenedor-marco2 {
+    padding: 20px;
+  }
+  .formulario h2 {
+    font-size: 18px;
+  }
+  label, .campo, .campo2 {
+    font-size: 13px;
+  }
+  .logo img {
+    width: 140px;
+  }
+}
+</style>
 </head>
-
 <body>
   <div class="contenedor-principal">
     <div class="logo">
