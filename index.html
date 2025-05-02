@@ -49,6 +49,15 @@
       max-width: 500px;
     }
 
+    .contenedor-informacion {
+      padding: 0 20px; /* margen lateral para los datos */
+    }
+    
+    .contenedor-marco {
+      width: 100%;
+      margin: 0;
+    }
+
     .contenedor-marco {
       background-color: white;
       border-radius: 25px;
@@ -65,7 +74,7 @@
       border-radius: 0 0 25px 25px;
       padding: 20px;
       width: 100%;
-      box-sizing: border-box;
+      box-sizing: border-box; /* lo usamos para que el contenedr gris quede justo sobre el borde del contenedor blanco*/
       text-align: center;
       z-index: 10;
       margin-bottom: 0px;
@@ -197,7 +206,7 @@
 </head>
 
 <body>
-  <div class="contenedor-principal">
+    <div class="contenedor-principal">
     <div class="logo">
       <img src="assets/LOGO_CINTANDINA_SIN_FONDO.png" alt="logo_cintandina">
     </div>
@@ -209,42 +218,43 @@
       Buscamos satisfacer las expectativas de los consumidores para garantizar seguridad y ofrecer diferentes alternativas en sus procesos de empaque, todo enmarcado en una excelente calidad e innovación, gracias a las actividades de investigación y diseño, para dar respuesta a las tendencias del mercado.
     </div>
     <br>
-    <div class="contenedor-marco">
-      <div class="formulario">
-        <label>Razón Social:</label>
-        <div class="campo">Cintandina S.A.</div>
-
-        <label>NIT:</label>
-        <div class="campo">890.321.924</div>
-        <label>Dirección:</label>
-        <div class="campo">Carrera 2 # 37 - 50</div>
-        <div class="fila-datos">
-          <div class="grupo-dato">
-            <label>Teléfono:</label>
-            <div class="campo2">(602)4430801</div>
+    <div class="contenedor-informacion">
+      <div class="contenedor-marco">
+        <div class="formulario">
+          <label>Razón Social:</label>
+          <div class="campo">Cintandina S.A.</div>
+  
+          <label>NIT:</label>
+          <div class="campo">890.321.924</div>
+          <label>Dirección:</label>
+          <div class="campo">Carrera 2 # 37 - 50</div>
+          <div class="fila-datos">
+            <div class="grupo-dato">
+              <label>Teléfono:</label>
+              <div class="campo2">(602)4430801</div>
+            </div>
+            <div class="grupo-dato">
+              <label>Ciudad:</label>
+              <div class="campo2">Cali</div>
+            </div>
           </div>
-          <div class="grupo-dato">
-            <label>Ciudad:</label>
-            <div class="campo2">Cali</div>
-          </div>
+  
+          <label>Correo Electrónico:</label>
+          <div class="campo">telemercadeo@cintandina.com</div>
+  
+          <label>Página Web:</label>
+          <div class="campo">www.cintandina.com</div>
+  
+          <label>Más información:</label>
+          <div class="campo"></div>
         </div>
-
-        <label>Correo Electrónico:</label>
-        <div class="campo">telemercadeo@cintandina.com</div>
-
-        <label>Página Web:</label>
-        <div class="campo">www.cintandina.com</div>
-
-        <label>Más información:</label>
-        <div class="campo"></div>
       </div>
-      <br>
+    </div>
       <div class="contenedor-marco2">
         SI SE ENCUENTRA ROTA LA CINTA DE SEGURIDAD VERIFIQUE EL CONTENIDO EN PRESENCIA
         DEL TRANSPORTADOR O COMUNIQUESE CON NOSOTROS.
       </div> 
     </div>
-      </div> 
     <div style="width: 90%; max-width: 500px; margin: 0 auto 30px auto;">
       <a class="boton-confirmar" href="https://cathsanchez6.github.io/Formulario_Prueba_dos/" target="_blank">
         <i class="fas fa-box" style="margin-right: 10px;"></i> Confirmar entrega <i class="fas fa-hand-point-left" style="margin-left: 10px;"></i>
