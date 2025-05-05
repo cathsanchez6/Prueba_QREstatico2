@@ -215,8 +215,10 @@
         <div class="campo">telemercadeo@cintandina.com</div>
         <label>Página Web:</label>
         <div class="campo">www.cintandina.com</div>
-        <label>Más información:</label>
-        <div class="campo"></div>
+        <div id="mas-informacion">
+          <label>Más información:</label>
+          <div class="campo"></div>
+        </div>
       </div>
       <br>
       <div class="contenedor-marco2">
@@ -235,5 +237,17 @@
       </a>
     </div>
   </div>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var masInfo = document.getElementById("mas-informacion");
+        var campo = masInfo.querySelector(".campo");
+    
+        // Verifica si el contenido está vacío o contiene solo espacios en blanco
+        if (!campo.textContent.trim()) {
+          masInfo.style.display = "none";
+        }
+      });
+  </script>
+
 </body>
 </html>
