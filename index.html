@@ -107,17 +107,19 @@
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-const webAppURL = "https://script.google.com/macros/s/AKfycbzkfh62KNrZpYTI1pbG-j7mNSLQFrTjqglBeAaQTFqWQpta_fKvL5VNSIbhMMGUq3H9UA/exec"; 
 
-if(!id){
+// Pega aquí la URL de tu Web App publicada
+const webAppURL = "https://script.google.com/macros/s/TU_WEBAPP_ID/exec"; 
+
+if (!id) {
   alert("No se proporcionó ID.");
 } else {
   fetch(`${webAppURL}?id=${id}`)
     .then(res => res.json())
     .then(data => {
-      if(data.error){ alert(data.error); return; }
+      if (data.error) { alert(data.error); return; }
 
-      // Cargar datos en la landing
+      // Llenar campos
       document.getElementById("logo-img").src = data.logo;
       document.getElementById("razon").textContent = data.razon_social;
       document.getElementById("sobre").textContent = data.sobre_nosotros;
@@ -129,11 +131,14 @@ if(!id){
       document.getElementById("pagina").href = data.pagina_web;
       document.getElementById("pagina").textContent = data.pagina_web;
 
-      if(data.link_adicional) document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
+      if (data.link_adicional)
+        document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
 
-      // Configurar botones
-      document.getElementById("btn-whatsapp").href = `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
-      document.getElementById("btn-formulario").href = `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
+      // Botones
+      document.getElementById("btn-whatsapp").href = 
+        `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+      document.getElementById("btn-formulario").href = 
+        `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
     })
     .catch(err => {
       console.error(err);
@@ -141,8 +146,10 @@ if(!id){
     });
 }
 </script>
+
 </body>
 </html>
+
 
 
 
