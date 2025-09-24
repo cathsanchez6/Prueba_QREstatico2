@@ -1,36 +1,121 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cintandina Dinámica</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cintandina</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-body { font-family:Poppins,sans-serif; padding:20px; background:#f4f4f4; }
-.logo img { width:200px; height:auto; margin-bottom:15px; }
-.boton { display:block; padding:15px; background:#007837; color:white; text-decoration:none; border-radius:15px; text-align:center; margin-top:10px; }
-.boton-whatsapp { background:#25d366; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('assets/FONDO_CINTA_DE_SEGURIDAD_INTELIGENTE-01.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+  .contenedor-principal {
+    max-width: 600px; 
+    margin: 0 auto;
+    padding: 18px 30px 0px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
+  .logo img { width: 200px; height: auto; object-fit: cover; }
+  .texto-justificado { text-align: justify; font-size: 14px; color: #444; line-height: 1.6; max-width: 500px; padding: 0 20px; }
+  .contenedor-marco {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    padding: 40px 20px 20px 20px; 
+    width: 90%;
+    max-width: 500px;
+    text-align: left;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .contenedor-marco2 {
+    background-color: #787E87;
+    border-radius: 0 0 25px 25px;
+    padding: 20px;
+    margin: 0 -20px -20px -20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .campo-dato { margin-bottom: 8px; font-size: 14px; color: #333; }
+  a.boton {
+    display: block;
+    width: 100%;
+    background-color: #787E87;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  a.boton:hover { background-color: #5e6168; }
+  @media(max-width:600px){
+    .logo img{ width: 140px; }
+    .texto-justificado{ font-size:13px; }
+  }
 </style>
 </head>
 <body>
+<div class="contenedor-principal">
+  <div class="logo"><img id="logo-img" src="" alt="logo_cintandina"></div>
+  <div class="texto-justificado" id="sobre"></div>
 
-<div id="contenedor"></div>
+  <div class="contenedor-marco">
+    <div class="campo-dato"><strong>Razón Social:</strong> <span id="razon"></span></div>
+    <div class="campo-dato"><strong>NIT:</strong> <span id="nit"></span></div>
+    <div class="campo-dato"><strong>Dirección:</strong> <span id="direccion"></span></div>
+    <div class="campo-dato"><strong>Ciudad:</strong> <span id="ciudad"></span></div>
+    <div class="campo-dato"><strong>Celular:</strong> <span id="celular"></span></div>
+    <div class="campo-dato"><strong>Correo:</strong> <span id="correo"></span></div>
+    <div class="campo-dato"><strong>Página Web:</strong> <a id="pagina" href="#" target="_blank"></a></div>
+    <div class="campo-dato" id="link-adicional"></div>
+  </div>
+  <div class="contenedor-marco2">
+    SI SE ENCUENTRA ROTA LA CINTA DE SEGURIDAD VERIFIQUE EL CONTENIDO EN PRESENCIA DEL TRANSPORTADOR O COMUNÍQUESE CON NOSOTROS.
+  </div>
+
+  <a class="boton" id="btn-formulario" href="#" target="_blank">
+    <i class="fas fa-box" style="margin-right: 10px;"></i> Confirmar entrega
+  </a>
+
+  <a class="boton" id="btn-whatsapp" href="#" target="_blank">
+    <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> Reportar incidente
+  </a>
+</div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-const webAppURL = "https://script.google.com/macros/s/TU_ID/exec"; // reemplaza con tu URL
+const webAppURL = "https://script.google.com/macros/s/TU_ID/exec"; // reemplaza TU_ID con tu Web App
 
-if (!id) {
+if(!id){
   alert("No se proporcionó ID.");
 } else {
   fetch(`${webAppURL}?id=${id}`)
     .then(res => res.json())
     .then(data => {
-      if (data.error) {
-        alert(data.error);
-        return;
-      }
+      if(data.error){ alert(data.error); return; }
 
       // Cargar datos en la landing
       document.getElementById("logo-img").src = data.logo;
@@ -38,25 +123,27 @@ if (!id) {
       document.getElementById("sobre").textContent = data.sobre_nosotros;
       document.getElementById("nit").textContent = data.nit;
       document.getElementById("direccion").textContent = data.direccion;
-      document.getElementById("celular").textContent = data.celular;
       document.getElementById("ciudad").textContent = data.ciudad;
+      document.getElementById("celular").textContent = data.celular;
       document.getElementById("correo").textContent = data.correo_electronico;
       document.getElementById("pagina").href = data.pagina_web;
       document.getElementById("pagina").textContent = data.pagina_web;
 
-      // Botón WhatsApp
-      document.getElementById("btn-whatsapp").href = `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+      if(data.link_adicional) document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
 
-      // Botón formulario (puedes pasar id o correo como parámetro)
+      // Configurar botones
+      document.getElementById("btn-whatsapp").href = `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
       document.getElementById("btn-formulario").href = `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+      console.error(err);
+      alert("Error cargando la información.");
+    });
 }
 </script>
-
-
 </body>
 </html>
+
 
 
 
