@@ -105,23 +105,8 @@
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-const webAppURL = "https://script.google.com/macros/s/AKfycbxpTwM_c4KS1dQGiIJiyikpTKqtxtpQnvYXUooySq2lMeYsmmq-FmSQbWG_7k_N3YWaSw/exec";
-
-if (!id) {
-  alert("No se proporcionó ID.");
-} else {
-  // Crear script JSONP
-  const script = document.createElement("script");
-  script.src = `${webAppURL}?id=${id}&callback=handleData`;
-  document.body.appendChild(script);
-}
-
-// Función de callback JSONP
 function handleData(data) {
   if(data.error){ alert(data.error); return; }
-
   document.getElementById("logo-img").src = data.logo;
   document.getElementById("razon").textContent = data.razon_social;
   document.getElementById("sobre").textContent = data.sobre_nosotros;
@@ -132,19 +117,26 @@ function handleData(data) {
   document.getElementById("correo").textContent = data.correo_electronico;
   document.getElementById("pagina").href = data.pagina_web;
   document.getElementById("pagina").textContent = data.pagina_web;
-
   if(data.link_adicional)
     document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
+  document.getElementById("btn-whatsapp").href = `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+  document.getElementById("btn-formulario").href = `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
+}
 
-  document.getElementById("btn-whatsapp").href = 
-    `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
-  document.getElementById("btn-formulario").href = 
-    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${data.id}&correo=${data.correo_electronico}`;
+// Crear script dinámico para JSONP
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+if(!id){ alert("No se proporcionó ID."); }
+else {
+  const script = document.createElement('script');
+  script.src = `https://script.google.com/macros/s/AKfycbwf0eiYi6IMP4oyWDsqCxfHsBL88ZAKJm70y7Ketf5d7T61foihK8SPspF7Rzv1bZbhSg/exec?id=${id}&callback=handleData`;
+  document.body.appendChild(script);
 }
 </script>
 
 </body>
 </html>
+
 
 
 
