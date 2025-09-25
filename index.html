@@ -110,16 +110,16 @@
 function handleData(data) {
   if(data.error){ alert(data.error); return; }
 
-  // Convertir logo de Drive a URL directa
-  let logoURL = (data.logo || "").trim();
-  if(logoURL.includes("drive.google.com")) {
-    const match = logoURL.match(/id=([a-zA-Z0-9_-]+)/);
-    if(match) logoURL = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  // Convertir link de Google Drive si viene en formato "open?id="
+  let logoUrl = data.logo;
+  if (logoUrl.includes("drive.google.com")) {
+    const match = logoUrl.match(/id=([a-zA-Z0-9_-]+)/);
+    if (match) {
+      logoUrl = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
   }
-  document.getElementById("logo-img").src = logoURL;
+  document.getElementById("logo-img").src = logoUrl;
 
-
-  document.getElementById("logo-img").src = logoURL;
   document.getElementById("razon").textContent = data.razon_social;
   document.getElementById("sobre").textContent = data.sobre_nosotros;
   document.getElementById("nit").textContent = data.nit;
@@ -133,13 +133,17 @@ function handleData(data) {
   if(data.link_adicional)
     document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
 
-  const celularStr = data.celular ? String(data.celular) : "";
-  document.getElementById("btn-whatsapp").href = 
-    `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+  // Validar que celular sea string antes de replace
+  if (data.celular) {
+    const celularStr = data.celular.toString();
+    document.getElementById("btn-whatsapp").href =
+      `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+  }
 
-  document.getElementById("btn-formulario").href = 
+  document.getElementById("btn-formulario").href =
     `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
 }
+
 
 
 // JSONP dinámico
@@ -156,6 +160,7 @@ else {
 
 </body>
 </html>
+
 
 
 
