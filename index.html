@@ -107,66 +107,55 @@
 </div>
 
 <script>
-function handleData(data) {
-  if(data.error){ alert(data.error); return; }
+  function handleData(data) {
+    console.log("Datos completos recibidos:", data);
 
-  // Convertir link de Google Drive si viene en formato "open?id="
-  let logoURL = data.logo;
-    if (logoURL.includes("drive.google.com")) {
-      const match = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)\//);
-      if (match) {
-        logoURL = `https://drive.google.com/uc?export=view&id=${match[1]}`;
-      } else {
-        // también puede venir en formato ?id=…
-        const idMatch2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        if (idMatch2) {
-          logoURL = `https://drive.google.com/uc?export=view&id=${idMatch2[1]}`;
-        }
+    // --- Procesar Logo ---
+    let logoURL = data.logo;
+    console.log("Logo desde la hoja (crudo):", logoURL);
+
+    if (logoURL) {
+      // Si es del tipo open?id=XXXX
+      if (logoURL.includes("open?id=")) {
+        const id = logoURL.split("id=")[1];
+        logoURL = `https://drive.google.com/uc?export=view&id=${id}`;
+      }
+
+      // Si es del tipo file/d/XXXX/view
+      if (logoURL.includes("/file/d/")) {
+        const id = logoURL.split("/d/")[1].split("/")[0];
+        logoURL = `https://drive.google.com/uc?export=view&id=${id}`;
       }
     }
-    document.getElementById("logo-img").src = logoURL;
 
+    console.log("URL final para el logo:", logoURL);
 
-  document.getElementById("razon").textContent = data.razon_social;
-  document.getElementById("sobre").textContent = data.sobre_nosotros;
-  document.getElementById("nit").textContent = data.nit;
-  document.getElementById("direccion").textContent = data.direccion;
-  document.getElementById("ciudad").textContent = data.ciudad;
-  document.getElementById("celular").textContent = data.celular;
-  document.getElementById("correo").textContent = data.correo_electronico;
-  document.getElementById("pagina").href = data.pagina_web;
-  document.getElementById("pagina").textContent = data.pagina_web;
+    // Insertar la imagen en el HTML
+    const logoElement = document.getElementById("logo");
+    if (logoElement && logoURL) {
+      logoElement.src = logoURL;
+    }
 
-  if(data.link_adicional)
-    document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
-
-  // Validar que celular sea string antes de replace
-  if (data.celular) {
-    const celularStr = data.celular.toString();
-    document.getElementById("btn-whatsapp").href =
-      `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+    // --- Procesar el resto de datos ---
+    document.getElementById("razon_social").textContent = data.razon_social || "";
+    document.getElementById("sobre_nosotros").textContent = data.sobre_nosotros || "";
+    document.getElementById("nit").textContent = data.nit || "";
+    document.getElementById("direccion").textContent = data.direccion || "";
+    document.getElementById("celular").textContent = data.celular || "";
+    document.getElementById("ciudad").textContent = data.ciudad || "";
+    document.getElementById("correo_electronico").textContent = data.correo_electronico || "";
+    document.getElementById("pagina_web").href = data.pagina_web || "#";
+    document.getElementById("pagina_web").textContent = data.pagina_web || "";
+    document.getElementById("link_adicional").href = data.link_adicional || "#";
+    document.getElementById("link_adicional").textContent = data.link_adicional || "";
   }
-
-  document.getElementById("btn-formulario").href =
-    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
-}
-
-
-
-// JSONP dinámico
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-if(!id){ alert("No se proporcionó ID."); }
-else {
-  const script = document.createElement('script');
-  script.src = `https://script.google.com/macros/s/AKfycbxNIOR9JMcY6yGlR3u7AQcTsLExvLB3rgUQy3LeMsFEf1wZ3oNQ2bC30TEx3c2RQJYsnQ/exec?id=${id}&callback=handleData`;
-  document.body.appendChild(script);
-}
 </script>
+
 
 
 </body>
 </html>
+
 
 
 
