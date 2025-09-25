@@ -108,17 +108,14 @@
 
 <script>
 function handleData(data) {
-  console.log(data); // DEBUG: ver qué llega
   if(data.error){ alert(data.error); return; }
 
-  // Logo: convertir enlace Drive a formato público directo
+  // Convertir logo de Drive a URL directa
   let logoURL = data.logo;
-    if(logoURL.includes("drive.google.com")) {
-      const idMatch = logoURL.match(/[-\w]{25,}/);
-      if(idMatch) logoURL = `https://drive.google.com/uc?id=${idMatch[0]}`;
-    }
-    document.getElementById("logo-img").src = logoURL;
-
+  if(logoURL.includes("drive.google.com")) {
+    const match = logoURL.match(/id=([a-zA-Z0-9_-]+)/);
+    if(match) logoURL = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  }
 
   document.getElementById("logo-img").src = logoURL;
   document.getElementById("razon").textContent = data.razon_social;
@@ -134,12 +131,14 @@ function handleData(data) {
   if(data.link_adicional)
     document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
 
-  const celularStr = String(data.celular); // asegura que sea string
+  const celularStr = data.celular ? String(data.celular) : "";
   document.getElementById("btn-whatsapp").href = 
     `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
 
-  document.getElementById("btn-formulario").href = `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
+  document.getElementById("btn-formulario").href = 
+    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
 }
+
 
 // JSONP dinámico
 const params = new URLSearchParams(window.location.search);
@@ -155,6 +154,7 @@ else {
 
 </body>
 </html>
+
 
 
 
