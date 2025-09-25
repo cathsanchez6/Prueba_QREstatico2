@@ -111,14 +111,21 @@ function handleData(data) {
   if(data.error){ alert(data.error); return; }
 
   // Convertir link de Google Drive si viene en formato "open?id="
-  let logoUrl = data.logo;
-  if (logoUrl.includes("drive.google.com")) {
-    const match = logoUrl.match(/id=([a-zA-Z0-9_-]+)/);
-    if (match) {
-      logoUrl = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  let logoURL = data.logo;
+    if (logoURL.includes("drive.google.com")) {
+      const match = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)\//);
+      if (match) {
+        logoURL = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+      } else {
+        // también puede venir en formato ?id=…
+        const idMatch2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (idMatch2) {
+          logoURL = `https://drive.google.com/uc?export=view&id=${idMatch2[1]}`;
+        }
+      }
     }
-  }
-  document.getElementById("logo-img").src = logoUrl;
+    document.getElementById("logo-img").src = logoURL;
+
 
   document.getElementById("razon").textContent = data.razon_social;
   document.getElementById("sobre").textContent = data.sobre_nosotros;
@@ -160,6 +167,7 @@ else {
 
 </body>
 </html>
+
 
 
 
