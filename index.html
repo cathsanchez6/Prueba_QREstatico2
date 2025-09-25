@@ -3,87 +3,78 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Datos del Cliente</title>
+<title>Cintandina - Cliente</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  body {
-    margin: 0;
-    padding: 20px;
-    font-family: 'Poppins', sans-serif;
-    background: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .contenedor {
-    max-width: 600px;
-    width: 100%;
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  .logo img { max-width: 200px; height: auto; margin-bottom: 20px; }
-  .campo { margin: 8px 0; text-align: left; }
-  .campo strong { display: inline-block; width: 120px; }
+  body { font-family: 'Poppins', sans-serif; background:#f4f4f4; margin:0; padding:20px; display:flex; flex-direction:column; align-items:center;}
+  .contenedor-principal { max-width:600px; width:100%; background:white; border-radius:15px; padding:20px; box-shadow:0 4px 10px rgba(0,0,0,0.1); text-align:center;}
+  .logo img { width:200px; height:auto; margin-bottom:20px; }
+  .campo { margin:8px 0; text-align:left; }
+  .campo strong { display:inline-block; width:120px; }
+  input, button { padding:8px 12px; margin:5px; font-size:14px; }
 </style>
 </head>
 <body>
 
-<div class="contenedor">
-  <div class="logo">
-    <img id="logo-img" src="" alt="Logo del cliente">
+<div class="contenedor-principal">
+  <h1>Logo y datos del Cliente</h1>
+  
+  <input type="number" id="clienteId" placeholder="Ingresa ID del cliente" />
+  <button id="cargar">Cargar datos</button>
+
+  <div id="resultado" style="margin-top:20px;">
+    <div class="logo"><img id="logo-img" src="" alt="Logo del cliente"></div>
+    <div class="campo"><strong>Razón Social:</strong> <span id="razon"></span></div>
+    <div class="campo"><strong>NIT:</strong> <span id="nit"></span></div>
+    <div class="campo"><strong>Dirección:</strong> <span id="direccion"></span></div>
+    <div class="campo"><strong>Ciudad:</strong> <span id="ciudad"></span></div>
+    <div class="campo"><strong>Celular:</strong> <span id="celular"></span></div>
+    <div class="campo"><strong>Correo:</strong> <span id="correo"></span></div>
+    <div class="campo"><strong>Página Web:</strong> <a id="pagina" href="#" target="_blank"></a></div>
   </div>
-  <div class="campo"><strong>Razón Social:</strong> <span id="razon"></span></div>
-  <div class="campo"><strong>NIT:</strong> <span id="nit"></span></div>
-  <div class="campo"><strong>Dirección:</strong> <span id="direccion"></span></div>
-  <div class="campo"><strong>Ciudad:</strong> <span id="ciudad"></span></div>
-  <div class="campo"><strong>Celular:</strong> <span id="celular"></span></div>
-  <div class="campo"><strong>Correo:</strong> <span id="correo"></span></div>
-  <div class="campo"><strong>Página Web:</strong> <a id="pagina" href="#" target="_blank"></a></div>
-  <div class="campo" id="link-adicional"></div>
 </div>
 
 <script>
-function handleData(data) {
-  if (data.error) { 
-    alert(data.error); 
-    return; 
-  }
+const cargarBtn = document.getElementById("cargar");
+const inputId = document.getElementById("clienteId");
 
-  // --- Logo Base64 ---
-  if(data.logo) {
-    document.getElementById("logo-img").src = data.logo;
-  }
+cargarBtn.addEventListener("click", () => {
+  const id = inputId.value;
+  if (!id) return alert("Ingresa un ID");
 
-  // --- Resto de datos ---
-  document.getElementById("razon").textContent = data.razon_social || "";
-  document.getElementById("nit").textContent = data.nit || "";
-  document.getElementById("direccion").textContent = data.direccion || "";
-  document.getElementById("ciudad").textContent = data.ciudad || "";
-  document.getElementById("celular").textContent = data.celular || "";
-  document.getElementById("correo").textContent = data.correo_electronico || "";
-  document.getElementById("pagina").href = data.pagina_web || "#";
-  document.getElementById("pagina").textContent = data.pagina_web || "";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxCRZgh362V6fpJYOT2qGQwQt0SCP074Bv3fPtExXzWzSn2frQAHkg8LQRsznQOkUhRWw/exec"; 
 
-  if (data.link_adicional) {
-    document.getElementById("link-adicional").innerHTML = 
-      `<strong>Más info:</strong> ${data.link_adicional}`;
-  }
-}
+  fetch(`${scriptURL}?id=${id}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) { alert(data.error); return; }
 
-// --- Obtener ID desde URL ---
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+      // --- Logo ---
+      let logoURL = data.logo;
+      if (logoURL && logoURL.includes("drive.google.com")) {
+        let fileId = null;
+        const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (match1) fileId = match1[1];
+        else if (match2) fileId = match2[1];
+        if (fileId) logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
+      }
 
-if (!id) {
-  alert("No se proporcionó ID.");
-} else {
-  const script = document.createElement('script');
-  script.src = `https://script.google.com/macros/s/AKfycbxCRZgh362V6fpJYOT2qGQwQt0SCP074Bv3fPtExXzWzSn2frQAHkg8LQRsznQOkUhRWw/exec?id=${id}&callback=handleData`;
-  document.body.appendChild(script);
-}
+      document.getElementById("logo-img").src = logoURL;
+
+      // --- Datos ---
+      document.getElementById("razon").textContent = data.razon_social || "";
+      document.getElementById("nit").textContent = data.nit || "";
+      document.getElementById("direccion").textContent = data.direccion || "";
+      document.getElementById("ciudad").textContent = data.ciudad || "";
+      document.getElementById("celular").textContent = data.celular || "";
+      document.getElementById("correo").textContent = data.correo_electronico || "";
+      document.getElementById("pagina").href = data.pagina_web || "#";
+      document.getElementById("pagina").textContent = data.pagina_web || "";
+    })
+    .catch(err => console.error("Error cargando logo:", err));
+});
 </script>
 
 </body>
