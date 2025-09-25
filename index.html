@@ -113,10 +113,12 @@ function handleData(data) {
 
   // Logo: convertir enlace Drive a formato público directo
   let logoURL = data.logo;
-  if(logoURL.includes("drive.google.com")) {
-    const idMatch = logoURL.match(/[-\w]{25,}/);
-    if(idMatch) logoURL = `https://drive.google.com/uc?id=${idMatch[0]}`;
-  }
+    if(logoURL.includes("drive.google.com")) {
+      const idMatch = logoURL.match(/[-\w]{25,}/);
+      if(idMatch) logoURL = `https://drive.google.com/uc?id=${idMatch[0]}`;
+    }
+    document.getElementById("logo-img").src = logoURL;
+
 
   document.getElementById("logo-img").src = logoURL;
   document.getElementById("razon").textContent = data.razon_social;
@@ -150,6 +152,7 @@ else {
 
 </body>
 </html>
+
 
 
 
