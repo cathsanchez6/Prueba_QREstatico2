@@ -134,7 +134,10 @@ function handleData(data) {
   if(data.link_adicional)
     document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
 
-  document.getElementById("btn-whatsapp").href = `https://wa.me/${data.celular.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+  const celularStr = String(data.celular); // asegura que sea string
+  document.getElementById("btn-whatsapp").href = 
+    `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+
   document.getElementById("btn-formulario").href = `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
 }
 
@@ -152,6 +155,7 @@ else {
 
 </body>
 </html>
+
 
 
 
