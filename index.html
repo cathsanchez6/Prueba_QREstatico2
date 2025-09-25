@@ -109,24 +109,17 @@
 function handleData(data) {
   if (data.error) { alert(data.error); return; }
 
-  // --- LOGO ---
-  let logoURL = data.logo;
-  if (logoURL && logoURL.includes("drive.google.com")) {
+  // --- LOGO robusto ---
+  let logoURL = data.logo || '';
+  if (logoURL.includes("drive.google.com")) {
     let fileId = null;
-
-    // Caso formato /d/ID/
     const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
-
-    // Caso formato ?id=ID
     const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-
+    const match3 = logoURL.match(/file\/d\/([a-zA-Z0-9_-]+)\//);
     if (match1) fileId = match1[1];
     else if (match2) fileId = match2[1];
-
-    if (fileId) {
-      // URL directa de visualización desde Drive
-      logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
-    }
+    else if (match3) fileId = match3[1];
+    if (fileId) logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
   }
 
   document.getElementById("logo-img").src = logoURL;
@@ -162,8 +155,8 @@ function handleData(data) {
 // --- JSONP dinámico desde QR / ID en URL ---
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-if(!id){ 
-  alert("No se proporcionó ID."); 
+if (!id) {
+  alert("No se proporcionó ID.");
 } else {
   const script = document.createElement('script');
   script.src = `https://script.google.com/macros/s/AKfycbxCRZgh362V6fpJYOT2qGQwQt0SCP074Bv3fPtExXzWzSn2frQAHkg8LQRsznQOkUhRWw/exec?id=${id}&callback=handleData`;
@@ -171,9 +164,10 @@ if(!id){
 }
 </script>
 
-
 </body>
 </html>
+
+
 
 
 
