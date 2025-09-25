@@ -108,48 +108,56 @@
 
 <script>
 function handleData(data) {
-  if(data.error){ alert(data.error); return; }
+  if (data.error) { alert(data.error); return; }
 
-  // Convertir link de Google Drive si viene en formato "open?id="
+  // --- LOGO ---
   let logoURL = data.logo;
-    if (logoURL.includes("drive.google.com")) {
-      const match = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)\//);
-      if (match) {
-        logoURL = `https://drive.google.com/uc?export=view&id=${match[1]}`;
-      } else {
-        // también puede venir en formato ?id=…
-        const idMatch2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        if (idMatch2) {
-          logoURL = `https://drive.google.com/uc?export=view&id=${idMatch2[1]}`;
-        }
-      }
+  if (logoURL && logoURL.includes("drive.google.com")) {
+    let fileId = null;
+
+    // Caso 1: formato /d/FILE_ID/
+    const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match1) fileId = match1[1];
+
+    // Caso 2: formato ?id=FILE_ID
+    const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (match2) fileId = match2[1];
+
+    if (fileId) {
+      logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
-    document.getElementById("logo-img").src = logoURL;
+  }
+  console.log("Logo final:", logoURL);
+  document.getElementById("logo-img").src = logoURL || "assets/fallback.png"; // fallback opcional
 
+  // --- DATOS ---
+  document.getElementById("razon").textContent = data.razon_social || "";
+  document.getElementById("sobre").textContent = data.sobre_nosotros || "";
+  document.getElementById("nit").textContent = data.nit || "";
+  document.getElementById("direccion").textContent = data.direccion || "";
+  document.getElementById("ciudad").textContent = data.ciudad || "";
+  document.getElementById("celular").textContent = data.celular || "";
+  document.getElementById("correo").textContent = data.correo_electronico || "";
+  document.getElementById("pagina").href = data.pagina_web || "#";
+  document.getElementById("pagina").textContent = data.pagina_web || "";
 
-  document.getElementById("razon").textContent = data.razon_social;
-  document.getElementById("sobre").textContent = data.sobre_nosotros;
-  document.getElementById("nit").textContent = data.nit;
-  document.getElementById("direccion").textContent = data.direccion;
-  document.getElementById("ciudad").textContent = data.ciudad;
-  document.getElementById("celular").textContent = data.celular;
-  document.getElementById("correo").textContent = data.correo_electronico;
-  document.getElementById("pagina").href = data.pagina_web;
-  document.getElementById("pagina").textContent = data.pagina_web;
+  if (data.link_adicional) {
+    document.getElementById("link-adicional").innerHTML =
+      `<strong>Más información:</strong> ${data.link_adicional}`;
+  }
 
-  if(data.link_adicional)
-    document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
-
-  // Validar que celular sea string antes de replace
+  // --- WHATSAPP ---
   if (data.celular) {
     const celularStr = data.celular.toString();
     document.getElementById("btn-whatsapp").href =
-      `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+      `https://wa.me/${celularStr.replace(/\D/g, '')}?text=Hola, necesito ayuda con un pedido`;
   }
 
+  // --- FORMULARIO ---
   document.getElementById("btn-formulario").href =
     `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
 }
+
 
 
 
@@ -167,6 +175,7 @@ else {
 
 </body>
 </html>
+
 
 
 
