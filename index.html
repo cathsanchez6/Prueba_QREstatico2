@@ -108,65 +108,63 @@
 
 <script>
   function handleData(data) {
-    console.log("Datos completos recibidos:", data);
+  console.log("Datos completos recibidos:", data);
 
-    // --- Procesar Logo ---
-    let logoURL = data.logo;
-    console.log("Logo desde la hoja (crudo):", logoURL);
+  // --- Procesar Logo ---
+  let logoURL = data.logo;
+  console.log("Logo desde la hoja (crudo):", logoURL);
 
-    if (logoURL) {
-      // Si es del tipo open?id=XXXX
-      if (logoURL.includes("open?id=")) {
-        const id = logoURL.split("id=")[1];
-        logoURL = `https://drive.google.com/uc?export=view&id=${id}`;
-      }
-
-      // Si es del tipo file/d/XXXX/view
-      if (logoURL.includes("/file/d/")) {
-        const id = logoURL.split("/d/")[1].split("/")[0];
-        logoURL = `https://drive.google.com/uc?export=view&id=${id}`;
-      }
+  if (logoURL) {
+    if (logoURL.includes("open?id=")) {
+      const id = logoURL.split("id=")[1];
+      logoURL = `https://drive.google.com/uc?export=view&id=${id}`;
     }
-
-    console.log("URL final para el logo:", logoURL);
-
-    // Insertar la imagen en el HTML
-    const logoElement = document.getElementById("logo-img");
-    if (logoElement && logoURL) {
-      logoElement.src = logoURL;
+    if (logoURL.includes("/file/d/")) {
+      const id = logoURL.split("/d/")[1].split("/")[0];
+      logoURL = `https://drive.google.com/uc?export=view&id=${id}`;
     }
-
-    // --- Procesar el resto de datos ---
-    document.getElementById("razon").textContent = data.razon_social || "";
-    document.getElementById("sobre").textContent = data.sobre_nosotros || "";
-    document.getElementById("nit").textContent = data.nit || "";
-    document.getElementById("direccion").textContent = data.direccion || "";
-    document.getElementById("ciudad").textContent = data.ciudad || "";
-    document.getElementById("celular").textContent = data.celular || "";
-    document.getElementById("correo").textContent = data.correo_electronico || "";
-
-    const pagina = document.getElementById("pagina");
-    pagina.href = data.pagina_web || "#";
-    pagina.textContent = data.pagina_web || "";
-
-    if (data.link_adicional) {
-      document.getElementById("link-adicional").innerHTML =
-        `<strong>Más información:</strong> <a href="${data.link_adicional}" target="_blank">${data.link_adicional}</a>`;
-    }
-
-    // Validar que celular sea string antes de replace
-    if (data.celular) {
-      const celularStr = data.celular.toString();
-      document.getElementById("btn-whatsapp").href =
-        `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
-    }
-
-    // Link del formulario con correo
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    document.getElementById("btn-formulario").href =
-      `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
   }
+
+  console.log("URL final para el logo:", logoURL);
+
+  // Logo
+  const logoElement = document.getElementById("logo-img");
+  if (logoElement && logoURL) {
+    logoElement.src = logoURL;
+  }
+
+  // --- Resto de datos ---
+  document.getElementById("razon").textContent = data.razon_social || "";
+  document.getElementById("sobre").textContent = data.sobre_nosotros || "";
+  document.getElementById("nit").textContent = data.nit || "";
+  document.getElementById("direccion").textContent = data.direccion || "";
+  document.getElementById("ciudad").textContent = data.ciudad || "";
+  document.getElementById("celular").textContent = data.celular || "";
+  document.getElementById("correo").textContent = data.correo_electronico || "";
+
+  const pagina = document.getElementById("pagina");
+  pagina.href = data.pagina_web || "#";
+  pagina.textContent = data.pagina_web || "";
+
+  if (data.link_adicional) {
+    document.getElementById("link-adicional").innerHTML =
+      `<strong>Más información:</strong> <a href="${data.link_adicional}" target="_blank">${data.link_adicional}</a>`;
+  }
+
+  // Botón WhatsApp
+  if (data.celular) {
+    const celularStr = data.celular.toString();
+    document.getElementById("btn-whatsapp").href =
+      `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
+  }
+
+  // Botón Formulario
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  document.getElementById("btn-formulario").href =
+    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
+}
+
 
   // JSONP dinámico
   const params = new URLSearchParams(window.location.search);
@@ -184,6 +182,7 @@
 
 </body>
 </html>
+
 
 
 
