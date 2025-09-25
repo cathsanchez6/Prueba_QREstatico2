@@ -115,11 +115,11 @@ function handleData(data) {
   if (logoURL && logoURL.includes("drive.google.com")) {
     let fileId = null;
 
-    // Caso 1: formato /d/FILE_ID/
+    // Caso formato /d/ID/
     const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if (match1) fileId = match1[1];
 
-    // Caso 2: formato ?id=FILE_ID
+    // Caso formato ?id=ID
     const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
     if (match2) fileId = match2[1];
 
@@ -127,8 +127,9 @@ function handleData(data) {
       logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
   }
+
   console.log("Logo final:", logoURL);
-  document.getElementById("logo-img").src = logoURL || "assets/fallback.png"; // fallback opcional
+  document.getElementById("logo-img").src = logoURL;
 
   // --- DATOS ---
   document.getElementById("razon").textContent = data.razon_social || "";
@@ -175,6 +176,7 @@ else {
 
 </body>
 </html>
+
 
 
 
