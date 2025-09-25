@@ -148,13 +148,41 @@
     document.getElementById("pagina_web").textContent = data.pagina_web || "";
     document.getElementById("link_adicional").href = data.link_adicional || "#";
     document.getElementById("link_adicional").textContent = data.link_adicional || "";
+  
+
+ if(data.link_adicional)
+    document.getElementById("link-adicional").innerHTML = `<strong>Más información:</strong> ${data.link_adicional}`;
+
+  // Validar que celular sea string antes de replace
+  if (data.celular) {
+    const celularStr = data.celular.toString();
+    document.getElementById("btn-whatsapp").href =
+      `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
   }
+
+  document.getElementById("btn-formulario").href =
+    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
+}
+
+
+
+// JSONP dinámico
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+if(!id){ alert("No se proporcionó ID."); }
+else {
+  const script = document.createElement('script');
+  script.src = `https://script.google.com/macros/s/AKfycbxNIOR9JMcY6yGlR3u7AQcTsLExvLB3rgUQy3LeMsFEf1wZ3oNQ2bC30TEx3c2RQJYsnQ/exec?id=${id}&callback=handleData`;
+  document.body.appendChild(script);
+}
+  
 </script>
 
 
 
 </body>
 </html>
+
 
 
 
