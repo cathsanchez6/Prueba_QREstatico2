@@ -1,77 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cintandina - Cliente</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-  body { font-family: 'Poppins', sans-serif; background:#f4f4f4; margin:0; padding:20px; display:flex; flex-direction:column; align-items:center;}
-  .contenedor-principal { max-width:600px; width:100%; background:white; border-radius:15px; padding:20px; box-shadow:0 4px 10px rgba(0,0,0,0.1); text-align:center;}
-  .logo img { width:200px; height:auto; margin-bottom:20px; }
-  .campo { margin:8px 0; text-align:left; }
-  .campo strong { display:inline-block; width:120px; }
-  input, button { padding:8px 12px; margin:5px; font-size:14px; }
-</style>
+<meta charset="UTF-8">
+<title>Logo de Cliente</title>
 </head>
 <body>
 
-<div class="contenedor-principal">
-  <h1>Logo y datos del Cliente</h1>
-  
-  <input type="number" id="clienteId" placeholder="Ingresa ID del cliente" />
-  <button id="cargar">Cargar datos</button>
+<h1>Logo desde Google Sheet</h1>
+<input type="number" id="clienteId" placeholder="Ingresa ID" />
+<button id="cargar">Cargar logo</button>
 
-  <div id="resultado" style="margin-top:20px;">
-    <div class="logo"><img id="logo-img" src="" alt="Logo del cliente"></div>
-    <div class="campo"><strong>Razón Social:</strong> <span id="razon"></span></div>
-    <div class="campo"><strong>NIT:</strong> <span id="nit"></span></div>
-    <div class="campo"><strong>Dirección:</strong> <span id="direccion"></span></div>
-    <div class="campo"><strong>Ciudad:</strong> <span id="ciudad"></span></div>
-    <div class="campo"><strong>Celular:</strong> <span id="celular"></span></div>
-    <div class="campo"><strong>Correo:</strong> <span id="correo"></span></div>
-    <div class="campo"><strong>Página Web:</strong> <a id="pagina" href="#" target="_blank"></a></div>
-  </div>
+<div id="resultado">
+  <h2 id="nombreCliente"></h2>
+  <img id="logo" style="max-width:200px; height:auto;" />
 </div>
 
 <script>
 const cargarBtn = document.getElementById("cargar");
 const inputId = document.getElementById("clienteId");
+const logoImg = document.getElementById("logo");
+const nombreCliente = document.getElementById("nombreCliente");
 
 cargarBtn.addEventListener("click", () => {
   const id = inputId.value;
   if (!id) return alert("Ingresa un ID");
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxCRZgh362V6fpJYOT2qGQwQt0SCP074Bv3fPtExXzWzSn2frQAHkg8LQRsznQOkUhRWw/exec"; // reemplaza con tu Web App desplegado
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzzXwBIArwt2FYthcQEpvRwIeeb-6iWeXczw6unUTlijG4l4fXl_FNkl2O1m1-oWbB3Gg/exec"; // tu Web App desplegado
 
   fetch(`${scriptURL}?id=${id}`)
     .then(res => res.json())
     .then(data => {
-      if (data.error) { alert(data.error); return; }
-
-      // --- Logo ---
-      let logoURL = data.logo;
-      if (logoURL && logoURL.includes("drive.google.com")) {
-        let fileId = null;
-        const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
-        const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        if (match1) fileId = match1[1];
-        else if (match2) fileId = match2[1];
-        if (fileId) logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
+      if (data.error) {
+        alert(data.error);
+        return;
       }
 
-      document.getElementById("logo-img").src = logoURL;
-
-      // --- Datos ---
-      document.getElementById("razon").textContent = data.razon_social || "";
-      document.getElementById("nit").textContent = data.nit || "";
-      document.getElementById("direccion").textContent = data.direccion || "";
-      document.getElementById("ciudad").textContent = data.ciudad || "";
-      document.getElementById("celular").textContent = data.celular || "";
-      document.getElementById("correo").textContent = data.correo_electronico || "";
-      document.getElementById("pagina").href = data.pagina_web || "#";
-      document.getElementById("pagina").textContent = data.pagina_web || "";
+      nombreCliente.textContent = data.razon_social;
+      logoImg.src = data.logo; // ya en Base64
     })
     .catch(err => console.error("Error cargando logo:", err));
 });
@@ -79,6 +44,8 @@ cargarBtn.addEventListener("click", () => {
 
 </body>
 </html>
+
+
 
 
 
