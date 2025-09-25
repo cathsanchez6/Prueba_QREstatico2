@@ -43,7 +43,7 @@ cargarBtn.addEventListener("click", () => {
   const id = inputId.value;
   if (!id) return alert("Ingresa un ID");
 
-  const scriptURL = "TU_URL_DE_APPS_SCRIPT"; // reemplaza con tu Web App desplegado
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxCRZgh362V6fpJYOT2qGQwQt0SCP074Bv3fPtExXzWzSn2frQAHkg8LQRsznQOkUhRWw/exec"; // reemplaza con tu Web App desplegado
 
   fetch(`${scriptURL}?id=${id}`)
     .then(res => res.json())
@@ -79,6 +79,7 @@ cargarBtn.addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
 
