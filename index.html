@@ -6,9 +6,6 @@
 <title>Cintandina</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-
-
 <style>
   body {
     margin: 0;
@@ -19,44 +16,26 @@
     background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 30px;
   }
   .contenedor-principal {
-    max-width: 600px; 
-    margin: 0 auto;
-    padding: 18px 30px 0px 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-  }
-  .logo img { width: 200px; height: auto; object-fit: cover; }
-  .texto-justificado { text-align: justify; font-size: 14px; color: #444; line-height: 1.6; max-width: 500px; padding: 0 20px; }
-  .contenedor-marco {
+    max-width: 600px;
+    width: 90%;
     background-color: white;
     border-radius: 25px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    padding: 40px 20px 20px 20px; 
-    width: 90%;
-    max-width: 500px;
-    text-align: left;
-    margin-bottom: 10px;
-    overflow: hidden;
-  }
-  .contenedor-marco2 {
-    background-color: #787E87;
-    border-radius: 0 0 25px 25px;
     padding: 20px;
-    margin: 0 -20px -20px -20px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    line-height: 1.4;
   }
+  .logo img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 20px auto;
+  }
+  .texto-justificado { text-align: justify; font-size: 14px; color: #444; line-height: 1.6; }
   .campo-dato { margin-bottom: 8px; font-size: 14px; color: #333; }
   a.boton {
     display: block;
@@ -72,35 +51,24 @@
     transition: background-color 0.3s;
   }
   a.boton:hover { background-color: #5e6168; }
-  @media(max-width:600px){
-    .logo img{ width: 140px; }
-    .texto-justificado{ font-size:13px; }
-  }
 </style>
 </head>
 <body>
 <div class="contenedor-principal">
-  <div class="logo"><img id="logo-img" src="" alt="logo_cintandina"></div>
+  <div class="logo"><img id="logo-img" src="" alt="Logo Cliente"></div>
   <div class="texto-justificado" id="sobre"></div>
 
-  <div class="contenedor-marco">
-    <div class="campo-dato"><strong>Razón Social:</strong> <span id="razon"></span></div>
-    <div class="campo-dato"><strong>NIT:</strong> <span id="nit"></span></div>
-    <div class="campo-dato"><strong>Dirección:</strong> <span id="direccion"></span></div>
-    <div class="campo-dato"><strong>Ciudad:</strong> <span id="ciudad"></span></div>
-    <div class="campo-dato"><strong>Celular:</strong> <span id="celular"></span></div>
-    <div class="campo-dato"><strong>Correo:</strong> <span id="correo"></span></div>
-    <div class="campo-dato"><strong>Página Web:</strong> <a id="pagina" href="#" target="_blank"></a></div>
-    <div class="campo-dato" id="link-adicional"></div>
-  </div>
-  <div class="contenedor-marco2">
-    SI SE ENCUENTRA ROTA LA CINTA DE SEGURIDAD VERIFIQUE EL CONTENIDO EN PRESENCIA DEL TRANSPORTADOR O COMUNÍQUESE CON NOSOTROS.
-  </div>
+  <div class="campo-dato"><strong>Razón Social:</strong> <span id="razon"></span></div>
+  <div class="campo-dato"><strong>NIT:</strong> <span id="nit"></span></div>
+  <div class="campo-dato"><strong>Dirección:</strong> <span id="direccion"></span></div>
+  <div class="campo-dato"><strong>Ciudad:</strong> <span id="ciudad"></span></div>
+  <div class="campo-dato"><strong>Celular:</strong> <span id="celular"></span></div>
+  <div class="campo-dato"><strong>Correo:</strong> <span id="correo"></span></div>
+  <div class="campo-dato"><strong>Página Web:</strong> <a id="pagina" href="#" target="_blank"></a></div>
 
   <a class="boton" id="btn-formulario" href="#" target="_blank">
     <i class="fas fa-box" style="margin-right: 10px;"></i> Confirmar entrega
   </a>
-
   <a class="boton" id="btn-whatsapp" href="#" target="_blank">
     <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> Reportar incidente
   </a>
@@ -111,24 +79,15 @@ function handleData(data) {
   if (data.error) { alert(data.error); return; }
 
   // --- LOGO ---
-  let logoURL = data.logo;
-  if (logoURL && logoURL.includes("drive.google.com")) {
+  let logoURL = data.logo || "";
+  if (logoURL.includes("drive.google.com")) {
     let fileId = null;
-
-    // Caso formato /d/ID/
     const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if (match1) fileId = match1[1];
-
-    // Caso formato ?id=ID
     const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
     if (match2) fileId = match2[1];
-
-    if (fileId) {
-      logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
-    }
+    if (fileId) logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
   }
-
-  console.log("Logo final:", logoURL);
   document.getElementById("logo-img").src = logoURL;
 
   // --- DATOS ---
@@ -142,40 +101,32 @@ function handleData(data) {
   document.getElementById("pagina").href = data.pagina_web || "#";
   document.getElementById("pagina").textContent = data.pagina_web || "";
 
-  if (data.link_adicional) {
-    document.getElementById("link-adicional").innerHTML =
-      `<strong>Más información:</strong> ${data.link_adicional}`;
-  }
-
   // --- WHATSAPP ---
   if (data.celular) {
     const celularStr = data.celular.toString();
     document.getElementById("btn-whatsapp").href =
-      `https://wa.me/${celularStr.replace(/\D/g, '')}?text=Hola, necesito ayuda con un pedido`;
+      `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
   }
 
   // --- FORMULARIO ---
   document.getElementById("btn-formulario").href =
-    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
+    `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${data.id}&correo=${data.correo_electronico}`;
 }
 
-
-
-
-// JSONP dinámico
+// --- Obtener ID desde URL ---
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-if(!id){ alert("No se proporcionó ID."); }
+if (!id) alert("No se proporcionó ID.");
 else {
   const script = document.createElement('script');
-  script.src = `https://script.google.com/macros/s/AKfycbxNIOR9JMcY6yGlR3u7AQcTsLExvLB3rgUQy3LeMsFEf1wZ3oNQ2bC30TEx3c2RQJYsnQ/exec?id=${id}&callback=handleData`;
+  // URL de tu Apps Script desplegado, usando JSONP
+  script.src = `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?id=${id}&callback=handleData`;
   document.body.appendChild(script);
 }
 </script>
-
-
 </body>
 </html>
+
 
 
 
