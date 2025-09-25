@@ -146,12 +146,13 @@ else {
           `<strong>Más información:</strong> ${data.link_adicional}`;
       }
 
-      // --- WhatsApp ---
-      if (data.celular) {
-        const celularStr = data.celular.toString();
-        document.getElementById("btn-whatsapp").href =
-          `https://wa.me/${celularStr.replace(/\D/g,'')}?text=Hola, necesito ayuda con un pedido`;
-      }
+      
+      // --- WhatsApp con +57 ---
+    if (data.celular) {
+      const celularStr = data.celular.toString().replace(/\D/g,''); // solo números
+      document.getElementById("btn-whatsapp").href =
+        `https://wa.me/57${celularStr}?text=Hola, necesito ayuda con un pedido`;
+    }
 
       // --- Formulario ---
       document.getElementById("btn-formulario").href =
@@ -163,6 +164,7 @@ else {
 
 </body>
 </html>
+
 
 
 
