@@ -113,13 +113,18 @@ function handleData(data) {
   let logoURL = data.logo;
   if (logoURL && logoURL.includes("drive.google.com")) {
     let fileId = null;
+
+    // Caso formato /d/ID/
     const match1 = logoURL.match(/\/d\/([a-zA-Z0-9_-]+)/);
+
+    // Caso formato ?id=ID
     const match2 = logoURL.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+
     if (match1) fileId = match1[1];
     else if (match2) fileId = match2[1];
 
     if (fileId) {
-      // usa la versión de Apps Script que devuelve Base64 si quieres, o la directa de Drive
+      // URL directa de visualización desde Drive
       logoURL = `https://drive.google.com/uc?export=view&id=${fileId}`;
     }
   }
@@ -154,11 +159,10 @@ function handleData(data) {
     `https://cathsanchez6.github.io/Formulario_Prueba_dos/?id=${id}&correo=${data.correo_electronico}`;
 }
 
-// --- Toma el ID directo de la URL ---
+// --- JSONP dinámico desde QR / ID en URL ---
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-
-if (!id) { 
+if(!id){ 
   alert("No se proporcionó ID."); 
 } else {
   const script = document.createElement('script');
@@ -167,8 +171,10 @@ if (!id) {
 }
 </script>
 
+
 </body>
 </html>
+
 
 
 
