@@ -44,17 +44,28 @@
     overflow: hidden;
   }
   .contenedor-marco2 {
-    background-color: #787E87;
-    border-radius: 0 0 25px 25px;
-    padding: 20px;
-    margin: 0 -20px -20px -20px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    line-height: 1.4;
-  }
+  background-color: #FFFFFF;
+  width: 100%;                 /* ocupa todo el ancho */
+  min-height: 60px;            /* altura mínima */
+  display: flex;               
+  align-items: center;         /* centra verticalmente el texto */
+  justify-content: center;     /* centra horizontalmente el texto */
+  
+  border-bottom-left-radius: 25px;   /* solo borde inferior */
+  border-bottom-right-radius: 25px;  /* solo borde inferior */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  
+  padding: 10px;               /* menos padding para hacerlo más pequeño */
+  margin: 0;                   /* sin márgenes extra */
+  
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
   .campo-dato { margin-bottom: 8px; font-size: 14px; color: #333; }
   a.boton {
     display: block;
@@ -89,10 +100,11 @@
 <body>
 
 <div class="contenedor-principal">
-  
+ 
+  <div class="contenedor-marco2">
    <div class="texto-justificado">
       <strong style="font-size: 18px;">Sobre Nosotros</strong>
-   </div>
+   </div></div>
 
   <div class="contenedor-marco">
     <div class="campo-dato">Para garantizar que recibiste el pedido a conformidad, por favor haz clic en el botón "Confirmar recibido".
@@ -154,6 +166,7 @@ else {
 
 </body>
 </html>
+
 
 
 
