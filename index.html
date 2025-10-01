@@ -126,59 +126,63 @@ a.boton:hover {
   text-align: center;
 }
 
-/* --- SOLO EN PANTALLAS PEQUEÑAS --- */
+ /* --- SOLO EN PANTALLAS PEQUEÑAS --- */
 @media (max-width: 768px) {
   body {
-    min-height: 100vh;              /* ocupa la pantalla */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* reparte arriba/abajo */
+    justify-content: flex-start;
     align-items: center;
-    overflow: hidden;               /* evita scroll global */
+    overflow-y: auto;   /* permite scroll si es necesario */
+    overflow-x: hidden;
+    padding: 0;
   }
 
   .contenedor-principal {
-    flex: 1;                        /* se expande */
     width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* reparte logo, contenido, botón */
-    align-items: center;
-    padding: 10px 20px;
-    box-sizing: border-box;
+    max-width: 100%;
+    padding: 10px;
+    margin: 0;
   }
 
   /* Logo más pequeño */
   .logo img { 
-    width: 140px; 
+    width: 120px; 
   }
 
-  /* Marco central ocupa espacio flexible */
+  /* Marco más compacto */
   .contenedor-marco {
-    flex: 1;
-    width: 100%;
-    max-width: 500px;
-    padding: 15px;
-    margin: 10px 0;
-    overflow: auto; /* si hay mucho texto, solo aquí aparece scroll */
+    padding: 12px;
+    margin: 8px 0;
   }
 
-  /* Botón siempre visible abajo */
-  a.boton {
-    width: 100%;
-    max-width: 500px;
-    min-height: 60px;
+  /* Texto más pequeño */
+  .campo-dato { 
+    font-size: 15px; 
+    line-height: 1.4;
+  }
+
+  .texto-justificado {
     font-size: 16px;
-    padding: 0 15px;
-    border-radius: 50px;
-    margin: 5px auto;
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  /* Botón más compacto */
+  a.boton {
+    min-height: 55px;
+    font-size: 15px;
+    padding: 0 12px;
+    border-radius: 40px;
   }
 
   a.boton img.icono-caja {
-    width: 30px;
+    width: 28px;
   }
 }
+
+
 </style>
 </head>
 <body>
@@ -266,6 +270,7 @@ else {
 
 </body>
 </html>
+
 
 
 
