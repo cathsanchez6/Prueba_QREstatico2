@@ -136,19 +136,19 @@ a.boton:hover {
     align-items: center;
     overflow-y: auto;   /* permite scroll si es necesario */
     overflow-x: hidden;
-    padding: 0 12px;
+    padding: 0 15px;
   }
 
   .contenedor-principal {
     width: 100%;
     max-width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 0;
   }
 
   /* Logo más pequeño */
   .logo img { 
-    width: 120px; 
+    width: 110px; 
   }
 
   /* Marco más compacto */
@@ -159,19 +159,19 @@ a.boton:hover {
 
   /* Texto más pequeño */
   .campo-dato { 
-    font-size: 15px; 
+    font-size: 14px; 
     line-height: 1.4;
   }
 
   .texto-justificado {
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1.3;
     text-align: center;
   }
 
   /* Botón más compacto */
   a.boton {
-    min-height: 55px;
+    min-height: 60px;
     font-size: 15px;
     padding: 0 12px;
     border-radius: 40px;
@@ -219,7 +219,7 @@ a.boton:hover {
   <br>
   <div class="contenedor-marco">
       <div class="campo-dato"> En caso de alguna pregunta, sugerencia o si requiere comunicarse con nosostros, hacer clic en el botón "Inquietudes y sugerencias". 
-        Estamos aquí para escucharte y ayudarte.</div>
+       </div>
       <a class="boton" id="btn-whatsapp" href="#" target="_blank">
       <img src="assets/WHATSAPP ICONO.svg" alt="icono-caja" class="icono-caja">
         <span>
@@ -236,7 +236,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 if (!id) { alert("No se proporcionó ID."); }
 else {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzzXwBIArwt2FYthcQEpvRwIeeb-6iWeXczw6unUTlijG4l4fXl_FNkl2O1m1-oWbB3Gg/exec"; // reemplaza por tu Web App
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzzXwBIArwt2FYthcQEpvRwIeeb-6iWeXczw6unUTlijG4l4fXl_FNkl2O1m1-oWbB3Gg/exec"; 
 
   fetch(`${scriptURL}?id=${id}`)
     .then(res => res.json())
@@ -270,6 +270,7 @@ else {
 
 </body>
 </html>
+
 
 
 
