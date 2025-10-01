@@ -100,7 +100,6 @@ a.boton {
   box-sizing: border-box;                
 }
 
-/* Botón deshabilitado */
 a.boton.disabled {
   pointer-events: none;
   opacity: 0.5;
@@ -126,7 +125,37 @@ a.boton:hover {
   text-align: center;
 }
 
- /* --- SOLO EN PANTALLAS PEQUEÑAS --- */
+/* Loader Overlay */
+.loader-overlay {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #348200;
+  border-radius: 50%;
+  width: 50px; height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+.loader-overlay p {
+  font-size: 18px;
+  color: #348200;
+  font-weight: bold;
+}
+
+/* --- SOLO EN PANTALLAS PEQUEÑAS --- */
 @media (max-width: 750px) {
   body {
     min-height: 100vh;
@@ -134,52 +163,22 @@ a.boton:hover {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    overflow-y: auto;   /* permite scroll si es necesario */
+    overflow-y: auto;
     overflow-x: hidden;
     padding: 0 15px;
   }
-
   .contenedor-principal {
     width: 100%;
     max-width: 100%;
     padding: 12px;
     margin: 1;
   }
-
-  /* Logo más pequeño */
-  .logo img { 
-    width: 95px; 
-  }
-
-  /* Marco más compacto */
-  .contenedor-marco {
-    padding: 12px;
-    margin: 8px 0;
-  }
-
-  /* Texto más pequeño */
-  .campo-dato { 
-    font-size: 13px; 
-    line-height: 1.4;
-  }
-
-  .texto-justificado {
-    font-size: 11px;
-    line-height: 1.2;
-    justify-content: flex-start;
-  }
-
-  /* Botón más compacto */
-  a.boton {
-    min-height: 70px;
-    font-size: 15px;
-    padding: 0 12px;
-    border-radius: 50px;
-  }
-
-  a.boton img.icono-caja {
-    width: 45px;
-  }
+  .logo img { width: 95px; }
+  .contenedor-marco { padding: 12px; margin: 8px 0; }
+  .campo-dato { font-size: 13px; line-height: 1.4; }
+  .texto-justificado { font-size: 11px; line-height: 1.2; }
+  a.boton { min-height: 70px; font-size: 15px; padding: 0 12px; border-radius: 50px; }
+  a.boton img.icono-caja { width: 45px; }
 }
 </style>
 </head>
@@ -192,7 +191,6 @@ a.boton:hover {
   <div class="logo">
       <img src="assets/CAJA.svg" alt="caja">
   </div>
-
   <div class="texto-justificado">
      <b> Información de entrega:</b> 
   </div>
@@ -200,7 +198,6 @@ a.boton:hover {
 
 <div class="contenedor-marco">
   <div class="campo-dato">Para garantizar la entrega del pedido a conformidad, hacer clic en el botón "Confirmación de entrega".</div>
-
   <a class="boton disabled" id="btn-formulario" href="#" target="_blank">
     <img src="assets/CONFIRMACIÓN ICONO.svg" alt="icono-caja" class="icono-caja">
     <span>Confirmación de <br> entrega</span>
@@ -216,8 +213,13 @@ a.boton:hover {
   </a>
 </div>
 
+<!-- Loader -->
+<div id="loader" class="loader-overlay">
+  <div class="spinner"></div>
+  <p>Cargando...</p>
+</div>
+
 <script>
-// --- Tomamos ID desde la URL (QR)
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
@@ -229,7 +231,6 @@ if (id) {
     .then(data => {
       if (data.error) { alert(data.error); return; }
 
-      // Botón WhatsApp (+57 siempre al inicio)
       if (data.celular) {
         const celularStr = data.celular.toString().replace(/\D/g,'');
         const btnWhatsapp = document.getElementById("btn-whatsapp");
@@ -237,12 +238,26 @@ if (id) {
         btnWhatsapp.classList.remove("disabled");
       }
 
-      // Botón Formulario
       if (data.correo_electronico) {
         const btnFormulario = document.getElementById("btn-formulario");
         btnFormulario.href = `https://cathsanchez6.github.io/PruebaEntrega_QREstatico/?id=${id}&correo=${data.correo_electronico}`;
         btnFormulario.classList.remove("disabled");
       }
+
+      // Agregar evento de loader a ambos botones
+      document.querySelectorAll("a.boton").forEach(btn => {
+        if (!btn.classList.contains("disabled")) {
+          btn.addEventListener("click", function(e) {
+            e.preventDefault();
+            const loader = document.getElementById("loader");
+            loader.style.display = "flex";
+            const link = btn.getAttribute("href");
+            setTimeout(() => {
+              window.location.href = link;
+            }, 1000);
+          });
+        }
+      });
     })
     .catch(err => console.error("Error cargando datos:", err));
 }
