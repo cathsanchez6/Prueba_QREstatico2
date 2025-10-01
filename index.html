@@ -91,15 +91,17 @@
 
   .texto-justificado {
       text-align: center;
-      font-size: 17px;
+      font-size: 19px;
       color: #647e87;
       padding: 0 20px;
       line-height: 1.6;
       max-width: 500px;
+      line-height: 4;
     }
 
   
-  a.boton:hover { background-color: #5e6168; }
+  a.boton:hover { background-color: #348200; }
+  
   @media(max-width:600px){
     .logo img{ width: 140px; }
     .texto-justificado{ font-size:13px; }
@@ -125,12 +127,14 @@
   <div class="contenedor-marco">
     <div class="campo-dato">Para garantizar que recibiste el pedido a conformidad, por favor haz clic en el botón "Confirmar recibido".
       </div>
+
+    <a class="boton" id="btn-formulario" href="#" target="_blank">
+    <i class="fas fa-box" style="margin-right: 10px;"></i> Confirmar recibido
+  </a>
     
   </div>
   
-  <a class="boton" id="btn-formulario" href="#" target="_blank">
-    <i class="fas fa-box" style="margin-right: 10px;"></i> Confirmar recibido
-  </a>
+  
   <br>
   <div class="contenedor-marco">
       <div class="campo-dato"> Si tienes alguna pregunta, sugerencia o necesitas comunicarte con nosostros, utiliza el botón "Inquietudes y sugerencias". 
@@ -182,6 +186,7 @@ else {
 
 </body>
 </html>
+
 
 
 
