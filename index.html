@@ -126,31 +126,58 @@ a.boton:hover {
   text-align: center;
 }
 
-/* Responsivo */
+/* --- SOLO EN PANTALLAS PEQUEÑAS --- */
 @media (max-width: 768px) {
-  .contenedor-principal {
-    width: 100%;          /* ocupa todo sin margen */
-    padding: 15px;        /* reduce padding */
+  body {
+    min-height: 100vh;              /* ocupa la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* reparte arriba/abajo */
+    align-items: center;
+    overflow: hidden;               /* evita scroll global */
   }
-  a.boton {
-    font-size: 18px;
-    min-height: 80px;
-    max-width: 100%;      /* así nunca se desborda */
-  }
-  a.boton img.icono-caja { width: 40px; }
-}
 
-@media (max-width: 480px) {
   .contenedor-principal {
-    padding: 10px;
+    flex: 1;                        /* se expande */
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* reparte logo, contenido, botón */
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
   }
+
+  /* Logo más pequeño */
+  .logo img { 
+    width: 140px; 
+  }
+
+  /* Marco central ocupa espacio flexible */
+  .contenedor-marco {
+    flex: 1;
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    margin: 10px 0;
+    overflow: auto; /* si hay mucho texto, solo aquí aparece scroll */
+  }
+
+  /* Botón siempre visible abajo */
   a.boton {
+    width: 100%;
+    max-width: 500px;
+    min-height: 60px;
     font-size: 16px;
-    min-height: 70px;
-    padding: 0 12px;
-    max-width: 100%;     /* fuerza al 100% en móviles */
+    padding: 0 15px;
+    border-radius: 50px;
+    margin: 5px auto;
   }
-  a.boton img.icono-caja { width: 35px; }
+
+  a.boton img.icono-caja {
+    width: 30px;
+  }
 }
 </style>
 </head>
@@ -239,6 +266,7 @@ else {
 
 </body>
 </html>
+
 
 
 
