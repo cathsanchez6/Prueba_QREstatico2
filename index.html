@@ -155,8 +155,21 @@ a.boton:hover {
   font-weight: bold;
 }
 
+ .close-btn {
+  margin-top: 15px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #d9534f;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
 /* --- SOLO EN PANTALLAS PEQUEÑAS --- */
-@media (max-width: 750px) {
+@media (max-width: 730px) {
   body {
     min-height: 100vh;
     display: flex;
@@ -171,14 +184,32 @@ a.boton:hover {
     width: 100%;
     max-width: 100%;
     padding: 12px;
-    margin: 1;
+    margin: 2;
   }
-  .logo img { width: 95px; }
-  .contenedor-marco { padding: 12px; margin: 8px 0; }
-  .campo-dato { font-size: 13px; line-height: 1.4; }
-  .texto-justificado { font-size: 11px; line-height: 1.2; }
-  a.boton { min-height: 70px; font-size: 15px; padding: 0 12px; border-radius: 50px; }
-  a.boton img.icono-caja { width: 45px; }
+  .logo img { 
+   width: 95px;
+  }
+  .contenedor-marco { 
+   padding: 12px; 
+   margin: 8px 0; 
+  }
+  .campo-dato { 
+   font-size: 13px; 
+   line-height: 1.4; 
+  }
+  .texto-justificado { 
+   font-size: 13px; 
+   line-height: 1.1;
+  }
+  a.boton { 
+   min-height: 70px; 
+   font-size: 15px; 
+   padding: 0 12px; 
+   border-radius: 50px; 
+  }
+  a.boton img.icono-caja { 
+   width: 45px; 
+  }
 }
 </style>
 </head>
@@ -209,14 +240,17 @@ a.boton:hover {
   <div class="campo-dato">En caso de alguna pregunta, sugerencia o si requiere comunicarse con nosotros, hacer clic en el botón "Inquietudes y sugerencias".</div>
   <a class="boton disabled" id="btn-whatsapp" href="#" target="_blank">
     <img src="assets/WHATSAPP ICONO.svg" alt="icono-caja" class="icono-caja">
-    <span>Inquietudes y sugerencias</span>
+    <span>Inquietudes <br> y sugerencias</span>
   </a>
 </div>
+
+ <div class="texto-justificado">Bienvenido(a)</div>
 
 <!-- Loader -->
 <div id="loader" class="loader-overlay">
   <div class="spinner"></div>
   <p>Cargando...</p>
+ <button id="cancel-loader" class="close-btn">✖</button>
 </div>
 
 <script>
@@ -261,10 +295,18 @@ if (id) {
     })
     .catch(err => console.error("Error cargando datos:", err));
 }
+
+ // Botón para cancelar y recargar la página
+  document.getElementById("cancel-loader").addEventListener("click", () => {
+    document.getElementById("loader").style.display = "none";
+    location.reload(); // refresca la página
+  });
+ 
 </script>
 
 </body>
 </html>
+
 
 
 
