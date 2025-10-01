@@ -83,20 +83,30 @@
   }
   
   a.boton {
-  display: inline-block;       
-  width: 500px;                
-  height: 100px;                
-  line-height: 60px;
+  display: flex;                   
+  align-items: center;             
+  justify-content: center;         
+  gap: 15px;                       
+  
+  width: 500px;                    
+  height: 150px;                  
   
   background-color: #348200;
   color: white;
-  border-radius: 70px;
+  border-radius: 90px;
   font-size: 20px;
-  text-align: center;
   margin: 10px auto;
   transition: background-color 0.3s ease;
-  text-decoration: none;       /* quita el subrayado */
+  text-decoration: none;           
+  text-align: center;
 }
+
+/* Ajusta tamaño del icono */
+a.boton img.icono-caja {
+  width: 40px;                  
+  height: auto;                  
+}
+
 
   
 a.boton:hover {
@@ -210,6 +220,7 @@ else {
 
 </body>
 </html>
+
 
 
 
