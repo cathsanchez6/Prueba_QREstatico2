@@ -62,12 +62,9 @@
   display: flex;               
   align-items: center;         
   justify-content: center;     
-  
   border-bottom: 2px solid #d1dceb;
-  
   padding: 10px;               
   margin: 0;                   
-  
   font-size: 18px;
   font-weight: bold;
   color: #647e87;
@@ -88,11 +85,9 @@ a.boton {
   align-items: center;            
   justify-content: center;        
   gap: 12px;                       
-  
   width: 100%;  
   max-width: 500px; 
   min-height: 100px;
-  
   background-color: #348200;
   color: white;
   border-radius: 70px;
@@ -105,7 +100,12 @@ a.boton {
   box-sizing: border-box;                
 }
 
-/* Ajusta icono */
+/* Botón deshabilitado */
+a.boton.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 a.boton img.icono-caja {
   width: 50px;  
   height: auto;
@@ -181,53 +181,39 @@ a.boton:hover {
     width: 45px;
   }
 }
-
-
 </style>
 </head>
 <body>
    <div class="contenedor-marco2">
-   <div class="texto-justificado">Bienvenido(a)
-   </div></div>
+     <div class="texto-justificado">Bienvenido(a)</div>
+   </div>
 
 <div class="contenedor-principal">
-  
   <div class="logo">
       <img src="assets/CAJA.svg" alt="caja">
-    </div>
+  </div>
 
   <div class="texto-justificado">
      <b> Información de entrega:</b> 
-   </div></div>
-
- 
-  <div class="contenedor-marco">
-    <div class="campo-dato">Para garantizar la entrega del pedido a conformidad, hacer clic en el botón "Confirmación de entrega".
-      </div>
-
-    <a class="boton" id="btn-formulario" href="#" target="_blank">
-    <img src="assets/CONFIRMACIÓN ICONO.svg" alt="icono-caja" class="icono-caja">
-    <span>
-      Confirmación de <br>
-      entrega 
-    </span>
-    </a>
-    
   </div>
+</div>
+
+<div class="contenedor-marco">
+  <div class="campo-dato">Para garantizar la entrega del pedido a conformidad, hacer clic en el botón "Confirmación de entrega".</div>
+
+  <a class="boton disabled" id="btn-formulario" href="#" target="_blank">
+    <img src="assets/CONFIRMACIÓN ICONO.svg" alt="icono-caja" class="icono-caja">
+    <span>Confirmación de <br> entrega</span>
+  </a>
+</div>
   
-  
-  <br>
-  <div class="contenedor-marco">
-      <div class="campo-dato"> En caso de alguna pregunta, sugerencia o si requiere comunicarse con nosostros, hacer clic en el botón "Inquietudes y sugerencias". 
-       </div>
-      <a class="boton" id="btn-whatsapp" href="#" target="_blank">
-      <img src="assets/WHATSAPP ICONO.svg" alt="icono-caja" class="icono-caja">
-        <span>
-          Inquietudes y sugerencias
-        </span>
-    </a>
-      
-    </div>
+<br>
+<div class="contenedor-marco">
+  <div class="campo-dato">En caso de alguna pregunta, sugerencia o si requiere comunicarse con nosotros, hacer clic en el botón "Inquietudes y sugerencias".</div>
+  <a class="boton disabled" id="btn-whatsapp" href="#" target="_blank">
+    <img src="assets/WHATSAPP ICONO.svg" alt="icono-caja" class="icono-caja">
+    <span>Inquietudes y sugerencias</span>
+  </a>
 </div>
 
 <script>
@@ -246,14 +232,16 @@ if (id) {
       // Botón WhatsApp (+57 siempre al inicio)
       if (data.celular) {
         const celularStr = data.celular.toString().replace(/\D/g,'');
-        document.getElementById("btn-whatsapp").href =
-          `https://wa.me/57${celularStr}?text=Hola, necesito ayuda con un pedido`;
+        const btnWhatsapp = document.getElementById("btn-whatsapp");
+        btnWhatsapp.href = `https://wa.me/57${celularStr}?text=Hola, necesito ayuda con un pedido`;
+        btnWhatsapp.classList.remove("disabled");
       }
 
       // Botón Formulario
       if (data.correo_electronico) {
-        document.getElementById("btn-formulario").href =
-          `https://cathsanchez6.github.io/PruebaEntrega_QREstatico/?id=${id}&correo=${data.correo_electronico}`;
+        const btnFormulario = document.getElementById("btn-formulario");
+        btnFormulario.href = `https://cathsanchez6.github.io/PruebaEntrega_QREstatico/?id=${id}&correo=${data.correo_electronico}`;
+        btnFormulario.classList.remove("disabled");
       }
     })
     .catch(err => console.error("Error cargando datos:", err));
@@ -262,6 +250,8 @@ if (id) {
 
 </body>
 </html>
+
+
 
 
 
