@@ -91,7 +91,7 @@ a.boton {
   
   width: 100%;  
   max-width: 500px; 
-  min-height: 120px;
+  min-height: 100px;
   
   background-color: #348200;
   color: white;
@@ -126,23 +126,32 @@ a.boton:hover {
   text-align: center;
 }
 
-/* 📱 Responsivo */
+/* Responsivo */
 @media (max-width: 768px) {
-  .logo img { width: 160px; }
-  .contenedor-marco { padding: 20px; }
-  a.boton { font-size: 18px; min-height: 80px; }
+  .contenedor-principal {
+    width: 100%;          /* ocupa todo sin margen */
+    padding: 15px;        /* reduce padding */
+  }
+  a.boton {
+    font-size: 18px;
+    min-height: 80px;
+    max-width: 100%;      /* así nunca se desborda */
+  }
   a.boton img.icono-caja { width: 40px; }
-  .texto-justificado { font-size: 18px; line-height: 1.4; }
 }
 
 @media (max-width: 480px) {
-  .logo img { width: 120px; }
-  .contenedor-marco { padding: 15px; }
-  a.boton { font-size: 16px; min-height: 70px; padding: 0 15px; }
+  .contenedor-principal {
+    padding: 10px;
+  }
+  a.boton {
+    font-size: 16px;
+    min-height: 70px;
+    padding: 0 12px;
+    max-width: 100%;     /* fuerza al 100% en móviles */
+  }
   a.boton img.icono-caja { width: 35px; }
-  .texto-justificado { font-size: 15px; line-height: 1.3; }
 }
-
 </style>
 </head>
 <body>
@@ -230,6 +239,7 @@ else {
 
 </body>
 </html>
+
 
 
 
