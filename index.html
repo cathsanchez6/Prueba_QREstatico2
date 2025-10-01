@@ -234,8 +234,8 @@ a.boton:hover {
 // --- Tomamos ID desde la URL (QR)
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-if (!id) { alert("No se proporcionó ID."); }
-else {
+
+if (id) {
   const scriptURL = "https://script.google.com/macros/s/AKfycbzzXwBIArwt2FYthcQEpvRwIeeb-6iWeXczw6unUTlijG4l4fXl_FNkl2O1m1-oWbB3Gg/exec"; 
 
   fetch(`${scriptURL}?id=${id}`)
@@ -243,26 +243,18 @@ else {
     .then(data => {
       if (data.error) { alert(data.error); return; }
 
-        // --- Datos ---
-      document.getElementById("celular").textContent = data.celular || "";
-      document.getElementById("correo").textContent = data.correo_electronico || "";
-
-      if (data.link_adicional) {
-        document.getElementById("link-adicional").innerHTML =
-          `<strong>Más información:</strong> ${data.link_adicional}`;
+      // Botón WhatsApp (+57 siempre al inicio)
+      if (data.celular) {
+        const celularStr = data.celular.toString().replace(/\D/g,'');
+        document.getElementById("btn-whatsapp").href =
+          `https://wa.me/57${celularStr}?text=Hola, necesito ayuda con un pedido`;
       }
 
-      
-      // --- WhatsApp con +57 ---
-    if (data.celular) {
-      const celularStr = data.celular.toString().replace(/\D/g,''); // solo números
-      document.getElementById("btn-whatsapp").href =
-        `https://wa.me/57${celularStr}?text=Hola, necesito ayuda con un pedido`;
-    }
-
-      // --- Formulario ---
-      document.getElementById("btn-formulario").href =
-        `https://cathsanchez6.github.io/PruebaEntrega_QREstatico/?id=${id}&correo=${data.correo_electronico}`;
+      // Botón Formulario
+      if (data.correo_electronico) {
+        document.getElementById("btn-formulario").href =
+          `https://cathsanchez6.github.io/PruebaEntrega_QREstatico/?id=${id}&correo=${data.correo_electronico}`;
+      }
     })
     .catch(err => console.error("Error cargando datos:", err));
 }
@@ -270,6 +262,7 @@ else {
 
 </body>
 </html>
+
 
 
 
