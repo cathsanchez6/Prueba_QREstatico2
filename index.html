@@ -125,7 +125,7 @@ a.boton:hover {
   text-align: center;
 }
 
- .texto-justificado2 {
+.texto-justificado2 {
   justify-content: flex-start;
   font-size: 16px;
   color: #647e87;
@@ -134,22 +134,21 @@ a.boton:hover {
   text-align: center;
 }
 
-
-/* Loader Overlay */
+/* Loader Overlay - oculto por defecto */
 .loader-overlay {
-  display: none;
+  display: none; /* oculto al inicio */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(255,255,255,0.8);
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-}
-
+} 
  
 .spinner {
   border: 6px solid #f3f3f3;
@@ -168,11 +167,11 @@ a.boton:hover {
   font-weight: bold;
 }
 
- .close-btn {
+/* Botón de cerrar loader */
+.close-btn {
   position: absolute;
   top: 10px; 
   right: 10px;
-  margin-top: 15px;
   background: transparent;
   border: none;
   font-size: 24px;
@@ -211,13 +210,12 @@ a.boton:hover {
    margin: 4px 20px; 
    max-width: calc(100% - 40px); 
   }
-
- .contenedor-marco2 {
+  .contenedor-marco2 {
     min-height: 0;         
     padding: 4px 8px;     
     font-size: 15px;      
     line-height: 1.2; 
- }
+  }
   .campo-dato { 
    font-size: 14px; 
    line-height: 1.4;
@@ -227,7 +225,7 @@ a.boton:hover {
   .texto-justificado { 
    font-size: 15px;
   }
- .texto-justificado2 { 
+  .texto-justificado2 { 
    font-size: 12px;
   }
   a.boton { 
@@ -272,14 +270,13 @@ a.boton:hover {
     <span>Inquietudes <br> y sugerencias</span>
   </a>
 </div>
-<br>
- <br>
- <div class="texto-justificado2">Diseñado por <b>Cintandina S.A.</b></div>
+
+<br><br>
+<div class="texto-justificado2">Diseñado por <b>Cintandina S.A.</b></div>
 
 <!-- Loader -->
 <div id="loader" class="loader-overlay">
-  <div class="spinner">
-  </div>
+  <div class="spinner"></div>
   <p>Cargando...</p>
   <button id="cancel-loader" class="close-btn">✖</button>
 </div>
@@ -309,7 +306,7 @@ if (id) {
         btnFormulario.classList.remove("disabled");
       }
 
-      // Agregar evento de loader a ambos botones
+      // Evento loader para ambos botones
       document.querySelectorAll("a.boton").forEach(btn => {
         if (!btn.classList.contains("disabled")) {
           btn.addEventListener("click", function(e) {
@@ -327,16 +324,15 @@ if (id) {
     .catch(err => console.error("Error cargando datos:", err));
 }
 
- // Botón para cancelar y recargar la página
-  document.getElementById("cancel-loader").addEventListener("click", () => {
-    document.getElementById("loader").style.display = "none";
-    location.reload(); // refresca la página
-  });
- 
+// Botón para cerrar loader sin recargar
+document.getElementById("cancel-loader").addEventListener("click", () => {
+  document.getElementById("loader").style.display = "none";
+});
 </script>
-
 </body>
 </html>
+
+
 
 
 
